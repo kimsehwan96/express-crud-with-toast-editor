@@ -15,3 +15,41 @@
     - 이미지를 드롭하여 에디터에 삽입했을때 우리가 원하는 특정 서버 URI로 저장되고, 바로 Img태그 안에 그 링크가 들어감
     - 이후 제출할때 getHtml() 메소드를 호출하고
     - 이 내용을 API 서버에 담아서 쑉 보내버리면 될듯
+
+
+```js
+'use strict'
+
+//I thinks we can refer to https://solve-programming.tistory.com/29
+
+const dummy_upload_image = (fileBlob) => {
+    console.log(fileBlob)
+    return "this is temp url!"
+}
+
+//결국 위 dummy_upload_umage(blob) 이 함수를 우리가 커스텀해서 특정 서버 URI로 저장하도록 코딩해야 함!
+
+const editor = new toastui.Editor({
+    el: document.querySelector('#editor'),
+    height: '500px',
+    initialEditType: 'wysiwyg',
+    previewStyle: 'vertical',
+    hooks: {
+        addImageBlobHook: (blob, callback) => {
+            const uploadedImageURL = dummy_upload_image(blob);
+            callback(uploadedImageURL);
+            return false;
+        }
+    }
+});
+
+const viewHtml = () => {
+    console.log(editor.getHtml());
+    //에디터 인스턴스의 getHtml() 메서드 호출하면 html 코드 받아 올 수 있네
+    //그리고 이미지 업로드하면 base64인코딩되서 글안에 올라감
+    // 이거 imageBlobHook이 있긴 있는데..
+}
+
+```
+
+- addImageBlobHook을 활용하면 될듯, callback에 넣어줄 함수를 우리가 서버의 특정 URI로 저장하고, 그 URI를 리텀해주는 코드를 짜면 오키!
