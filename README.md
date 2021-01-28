@@ -19,8 +19,6 @@
 - 현재 상태
 
 
-![1](images/1.png)
-
 - https://nhn.github.io/tui.editor/latest/addImageBlobHook
 - 이거 참고해야 함
 
