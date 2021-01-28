@@ -1,5 +1,7 @@
 'use strict'
 
+const endpoint = "http://localhost:5000/plant"
+
 //I think we can refer to https://solve-programming.tistory.com/29
 
 const dummy_upload_image = (fileBlob) => {
@@ -28,4 +30,15 @@ const viewHtml = () => {
     //에디터 인스턴스의 getHtml() 메서드 호출하면 html 코드 받아 올 수 있네
     //그리고 이미지 업로드하면 base64인코딩되서 글안에 올라감
     // 이거 imageBlobHook이 있긴 있는데..
+}
+
+const saveContentsToExpress = () => {
+    const contents = editor.getHtml();
+    fetch(endpoint, {
+        method: 'POST',
+        headers : {
+            'Content-Type': 'text/html'
+        },
+        data: contents
+    }).then((res) => console.log(res));
 }

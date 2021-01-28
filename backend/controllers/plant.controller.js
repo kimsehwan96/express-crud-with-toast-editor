@@ -15,4 +15,11 @@ const getDetailPlant = (req, res) => {
         ]
     })
 }
-module.exports = {getListPlants, getDetailPlant};
+
+const postContents = (req, res) => {
+    console.log(req);
+    res.json({
+        result : "temp"
+    })
+}
+module.exports = {getListPlants, getDetailPlant, postContents};
