@@ -61,6 +61,65 @@ const viewHtml = () => {
     // 이거 imageBlobHook이 있긴 있는데..
 }
 
+const saveContentsToExpress = () => {
+    const contents = editor.getHtml();
+    fetch(endpoint, {
+        method: 'POST',
+        headers : {
+            'Content-Type': 'text/html'
+        },
+        data: contents
+    }).then((res) => console.log(res));
+}
+
+//현재 express에서 POST메서드 처리가 안되는 중
+//이거 뭐 제목 / 콘텐츠  분리를 어떻게 할건지도 생각해봐야하고
+//서버사이드에서는 제목, 콘텐츠 분리해서 우선 콘솔에 찍는것부터 시작하기.
+
+```
+
+- express
+
+```js
+const express = require('express');
+const router = express.Router();
+const {getListPlants, getDetailPlant, postContents} = require('../controllers/plant.controller');
+
+router.get('/',getListPlants); // /plants
+router.get('/:id', getDetailPlant)
+router.post('/', postContents);
+
+module.exports = router;
+
+//above is the router code
+
+const path = require('path');
+
+const getListPlants = (req, res) => {
+    res.json({
+        result : [
+            "HI!"
+        ]
+    })
+}
+
+const getDetailPlant = (req, res) => {
+    res.json({
+        result : [
+            req.params
+        ]
+    })
+}
+
+const postContents = (req, res) => {
+    console.log(req);
+    res.json({
+        result : "temp"
+    })
+}
+module.exports = {getListPlants, getDetailPlant, postContents};
+
+//above is temp controller code
 ```
 
 - addImageBlobHook을 활용하면 될듯, callback에 넣어줄 함수를 우리가 서버의 특정 URI로 저장하고, 그 URI를 리텀해주는 코드를 짜면 오키!
