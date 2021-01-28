@@ -1,6 +1,6 @@
 'use strict'
 
-//I thinks we can refer to https://solve-programming.tistory.com/29
+//I think we can refer to https://solve-programming.tistory.com/29
 
 const dummy_upload_image = (fileBlob) => {
     console.log(fileBlob)
