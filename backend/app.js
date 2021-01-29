@@ -6,7 +6,6 @@ const session = require("express-session");
 const path = require('path');
 const dotenv = require("dotenv");
 const multer = require('multer'); //폼데이터 파싱을 위해서
-const upload = multer(); //폼데이터 파싱을 위해서
 const bodyParser = require("body-parser");
 const {sequelize} = require('./models');
 
@@ -18,6 +17,12 @@ sequelize.sync({force:false})
 .catch((err)=>{
   console.error(err);
 });
+
+const upload = multer({
+  limits : {
+    fieldSize : 50 * 1024 * 1024
+  }
+}); //폼데이터 파싱을 위해서
 
 const app = express();
 const indexRouter = require("./routes/index.route");
