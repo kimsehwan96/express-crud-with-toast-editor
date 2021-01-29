@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css" />
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/2.0.0/toastui-editor.min.css" />
+    <link rel="stylesheet" href="main.css">
     <title>테스트이다.</title>
 </head>
 <body>
-    <div class="contianer">
-        <div id="editor"></div>
+    <div class="container">
+            <input type="text" name="title" id="titleInput" placeholder="제목을 입력하세요">
+            <div id="editor" name="content"> </div>
+            <input type="submit">
         <button type="submit" onclick="viewHtml()">콘솔에서보기</button>
         <button type="submit" onclick="saveContentsToExpress()">서버에 보내기</button>
     </div>
