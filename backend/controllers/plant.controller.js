@@ -17,7 +17,8 @@ const getDetailPlant = (req, res) => {
 }
 
 const postContents = (req, res) => {
-    console.log(req);
+    console.log(req.body.title);
+    console.log(req.body.contents);
     res.json({
         result : "temp"
     })
