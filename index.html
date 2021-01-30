@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css" />
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/2.0.0/toastui-editor.min.css" />
+    <script src="http://sdk.amazonaws.com/js/aws-sdk-2.1.24.min.js"></script>
     <link rel="stylesheet" href="main.css">
     <title>테스트이다.</title>
 </head>
@@ -13,7 +14,7 @@
             <input type="text" name="title" id="titleInput" placeholder="제목을 입력하세요">
             <div id="editor" name="content"> </div>
             <input type="submit">
-        <button type="submit" onclick="viewHtml()">콘솔에서보기</button>
+        <button type="submit" onclick="testUpload()">콘솔에서보기</button>
         <button type="submit" onclick="saveContentsToExpress()">서버에 보내기</button>
     </div>
     <script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js"></script>

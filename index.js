@@ -1,12 +1,52 @@
 'use strict'
 
+
 const endpoint = "http://localhost:5000/plants"
 
 //I think we can refer to https://solve-programming.tistory.com/29
+const BUCKET_NAME = "seeat-image-dev-image-bucket"
+
+AWS.config.update({ // Credentials are OK
+    accessKeyId: 'AKIAJH6CX7666BDD4HVQ',
+    secretAccessKey: '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',
+    region: 'ap-northeast-2'
+});
+
+function testUpload(){
+    let s3 =  new AWS.S3({apiVersion: '2006-03-01'});
+    let params = {
+        Body: "12312412412",
+        Bucket: BUCKET_NAME,
+        Key: "test.json"
+    };
+
+    s3.upload(params, function(err, data){
+        if (err) console.log(err)
+        else console.log(data);
+    })
+}
+
 
 const dummy_upload_image = (fileBlob) => {
-    console.log(fileBlob)
-    return "this is temp url!"
+    let fileName = fileBlob.name
+    let fileLink;
+    let s3 =  new AWS.S3({apiVersion: '2006-03-01'});
+    let params = {
+        Body: fileBlob,
+        Bucket: BUCKET_NAME,
+        Key: fileName
+    };
+    s3.upload(params, function(err, data){
+        if (err) {
+            console.log(err)
+            alert("error !", err);
+        }
+        else {
+            console.log(data.Location)
+            fileLink = data.Location;
+        }
+    });
+    return fileLink;
 }
 
 //결국 위 dummy_upload_umage(blob) 이 함수를 우리가 커스텀해서 특정 서버 URI로 저장하도록 코딩해야 함!
@@ -16,13 +56,16 @@ const editor = new toastui.Editor({
     height: '500px',
     initialEditType: 'wysiwyg',
     previewStyle: 'vertical',
-    // hooks: {
-    //     addImageBlobHook: (blob, callback) => {
-    //         const uploadedImageURL = dummy_upload_image(blob);
-    //         callback(uploadedImageURL);
-    //         return false;
-    //     }
-    // }
+    hooks: {
+        addImageBlobHook: (blob, callback) => {
+            const uploadedImageURL = dummy_upload_image(blob);
+            console.log("in blob hook");
+            console.log(uploadedImageURL);
+            callback(`${uploadedImageURL}`);
+            console.log(uploadedImageURL);
+            return false;
+        }
+    }
 });
 
 const viewHtml = () => {
