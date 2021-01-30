@@ -29,7 +29,6 @@ function testUpload(){
 
 const dummy_upload_image = (fileBlob) => {
     let fileName = fileBlob.name
-    let fileLink;
     let s3 =  new AWS.S3({apiVersion: '2006-03-01'});
     let params = {
         Body: fileBlob,
@@ -43,11 +42,11 @@ const dummy_upload_image = (fileBlob) => {
         }
         else {
             console.log(data.Location)
-            fileLink = data.Location;
         }
     });
-    return fileLink;
+    return `https://seeat-image-dev-image-bucket.s3.ap-northeast-2.amazonaws.com/${fileName}`;
 }
+
 
 //결국 위 dummy_upload_umage(blob) 이 함수를 우리가 커스텀해서 특정 서버 URI로 저장하도록 코딩해야 함!
 
@@ -59,10 +58,9 @@ const editor = new toastui.Editor({
     hooks: {
         addImageBlobHook: (blob, callback) => {
             const uploadedImageURL = dummy_upload_image(blob);
-            console.log("in blob hook");
-            console.log(uploadedImageURL);
             callback(`${uploadedImageURL}`);
-            console.log(uploadedImageURL);
+            setTimeout(()=> {}, 1000);
+            //setTimeout아 아니라 콜백함수의 동작이 끝나고 나서 유알엘 받아오는것만 해결되면 될듯..?
             return false;
         }
     }
